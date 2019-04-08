@@ -81,6 +81,7 @@
 28c8b86deab549a1|Internet Explorer 8.0.7600.16385 / 9
 290532160612e071|WinRAR 2.90 / 3.60 / 4.01
 290532160612e071|WinRar x64
+292a746334889a7e|SQLiteSpy 1.9.13
 2a5a615382a84729|X-Chat 2 2.8.6-2
 2aa756186e21b320|RealTimeQuery 3.2
 2b164f512891ae37|NewsWolf NSListGen
@@ -100,6 +101,7 @@
 3198e37206f28dc7|CuteFTP 8.3 Professional (Build 8.3.4.0007)
 319f01bf9fe00f2d|Microsoft Access 2013 64-bit
 319f01bf9fe00f2d|Microsoft Access 2016 64-bit
+31e8ac6b0784ed7d|Foxit Reader 9.4.0.16811
 3353b940c074fd0c|Microsoft Built-in Snipping Tool
 337ed59af273c758|Sticky Notes
 337ed59af273c758|Sticky Notes (Windows 10)
@@ -179,6 +181,7 @@
 550abc1cb58eb92c|VeraCrypt 1.16 64-bit
 558c5bd9f906860a|BearShare Lite 5.2.5.1
 560d789a6a42ad5a|DC++ 0.261 / 0.698 / 0.782 (r2402.1)
+56c5204009d2b915|uTorrent 3.5.5
 590aee7bdd69b59b|Powershell Windows 10
 590aee7bdd69b59b|Windows Powershell 5.0 64-bit
 59e86071b87ac1c3|CuteFTP 8.3 (Build 8.3.4.0007)
