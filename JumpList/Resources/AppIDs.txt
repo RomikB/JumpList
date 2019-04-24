@@ -601,3 +601,8 @@ fe8bb4692de7b989|Smart Defrag 4.3.0.847
 fe9e0f7260000a12|RealVNC Server 5.3.0 64-bit (Connect+File Transfer)
 ff103e2cc310d0d|Adobe Reader XI
 ff224628f0e8103c|Morpheus 3.0.3.6
+4cb9c5750d51c07f|Microsoft Movies & TV (Build 10.19031.11411.0)
+ae6df75df512bd06|Microsoft Groove Music (Build 10.19031.1141.0)
+959668a81d4f220e|Sublime Text 3.2.1 (Build 3207)
+9eff0b23d51fe003|XMind 201807140020
+70ffd305907c983b|7zip 18.05
