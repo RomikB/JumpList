@@ -47,7 +47,7 @@ namespace JumpList.Automatic
 
             if (version > 1)
             {
-                Unknown2 = BitConverter.ToInt32(rawBytes, 116);
+                InteractionCount = BitConverter.ToInt32(rawBytes, 116);
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
                 Unknown4 = BitConverter.ToInt32(rawBytes, 124);
 
@@ -129,7 +129,7 @@ namespace JumpList.Automatic
         public int PinStatus { get; }
         public int Unknown0 { get; }
         public float AccessCount { get; }
-        public int Unknown2 { get; }
+        public int InteractionCount { get; }
         public int Unknown3 { get; }
         public int Unknown4 { get; }
         public Guid VolumeBirthDroid { get; }
@@ -181,7 +181,7 @@ namespace JumpList.Automatic
             sb.AppendLine($"CreationTime: {CreationTime}");
             sb.AppendLine($"Unknown0: {Unknown0}");
             sb.AppendLine($"AccessCount: {AccessCount}");
-            sb.AppendLine($"Unknown2: {Unknown2}");
+            sb.AppendLine($"InteractionCount: {InteractionCount}");
             sb.AppendLine($"Unknown3: {Unknown3}");
             sb.AppendLine($"Unknown4: {Unknown4}");
 
