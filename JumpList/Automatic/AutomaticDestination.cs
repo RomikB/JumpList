@@ -70,13 +70,13 @@ namespace JumpList.Automatic
 
                         var dlnk = new LnkFile(p, sfn);
 
-                        var dle = new AutoDestList(entry, dlnk);
+                        var dle = new AutoDestList(entry, dlnk,entry.InteractionCount);
 
                         DestListEntries.Add(dle);
                     }
                     else
                     {
-                        var dleNull = new AutoDestList(entry, null);
+                        var dleNull = new AutoDestList(entry, null,entry.InteractionCount);
 
                         DestListEntries.Add(dleNull);
                     }
@@ -196,7 +196,7 @@ namespace JumpList.Automatic
 
     public class AutoDestList
     {
-        public AutoDestList(DestListEntry destEntry, LnkFile lnk)
+        public AutoDestList(DestListEntry destEntry, LnkFile lnk, int interactionCount)
         {
             Hostname = destEntry.Hostname;
             VolumeDroid = destEntry.VolumeDroid;
@@ -212,6 +212,7 @@ namespace JumpList.Automatic
             MacAddress = destEntry.MacAddress;
 
             Lnk = lnk;
+            InteractionCount = interactionCount;
         }
 
         public string Hostname { get; }
@@ -221,6 +222,7 @@ namespace JumpList.Automatic
         public Guid FileBirthDroid { get; }
         public int EntryNumber { get; }
         public int MRUPosition { get; }
+        public int InteractionCount { get; }
         public DateTimeOffset CreatedOn { get; }
         public DateTimeOffset LastModified { get; }
         public bool Pinned { get; }

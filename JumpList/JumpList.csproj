@@ -10,9 +10,9 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/jumplist</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/jumplist</RepositoryUrl>
-    <AssemblyVersion>1.1.0.1</AssemblyVersion>
-    <FileVersion>1.1.0.1</FileVersion>
-    <Version>1.1.0.1</Version>
+    <AssemblyVersion>1.1.0.3</AssemblyVersion>
+    <FileVersion>1.1.0.3</FileVersion>
+    <Version>1.1.0.3</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
