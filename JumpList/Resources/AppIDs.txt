@@ -6,6 +6,8 @@ b08971c77377bde3|Visual Studio Enterprise 2015 Version 14.0 Update 3
 c31b3d36438b5e2c|Visual Studio Enterprise 2017 Version 15.9.10
 03d877ec11607fe4|Thunderbird 6.0.2
 044a50e6c87bc012|Classic FTP Plus 2.15
+fdbd48d45512dffc|Photoshop 7
+e26f61afb0824f2e|Photoshop CC 2015
 050620fe75ee0093|VMware Player 3.1.4
 05e01ecaf82f7d8e|Scour Exchange 0.0.0.228
 06059df4b02360af|Kadu 0.10.0 / 0.6.5.5
