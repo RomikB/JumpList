@@ -9,6 +9,7 @@ c31b3d36438b5e2c|Visual Studio Enterprise 2017 Version 15.9.10
 fdbd48d45512dffc|Photoshop 7
 e26f61afb0824f2e|Photoshop CC 2015
 050620fe75ee0093|VMware Player 3.1.4
+a55ed4fbb973aefb|Microsoft Teams version 1.3.0.4461
 05e01ecaf82f7d8e|Scour Exchange 0.0.0.228
 06059df4b02360af|Kadu 0.10.0 / 0.6.5.5
 070b52cf73249257|Sococo 1.5.0.2274
