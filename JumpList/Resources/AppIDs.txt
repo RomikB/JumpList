@@ -609,3 +609,12 @@ ae6df75df512bd06|Microsoft Groove Music (Build 10.19031.1141.0)
 959668a81d4f220e|Sublime Text 3.2.1 (Build 3207)
 9eff0b23d51fe003|XMind 201807140020
 70ffd305907c983b|7zip 18.05
+1c7a9be1b15a03ba|Microsoft ScreenSketch
+1ced32d74a95c7bc|Microsoft Visual Studio Code
+3c3871276e149215|PowerShell 7
+573770283dc3d854|Microsoft Windows SecHealthUI
+9390ee5b658e96e|PuTTY 0.72 / 0.73
+a55ed4fbb973aefb|Microsoft Teams
+baacb5294867b833|Notepad++ 7.8.6
+d249d9ddd424b688|Google Chrome 81.0.4044.138
+ff99ba2fb2e34b73|Microsoft Windows Calculator
