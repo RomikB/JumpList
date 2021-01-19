@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Eric Zimmerman</Authors>
     <Company>Eric Zimmerman</Company>
@@ -10,15 +10,15 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/jumplist</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/jumplist</RepositoryUrl>
-    <AssemblyVersion>1.1.0.3</AssemblyVersion>
-    <FileVersion>1.1.0.3</FileVersion>
-    <Version>1.1.0.3</Version>
+    <AssemblyVersion>1.1.0.5</AssemblyVersion>
+    <FileVersion>1.1.0.5</FileVersion>
+    <Version>1.1.0.5</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lnk" Version="1.1.0" />
-    <PackageReference Include="OleCf" Version="1.1.0" />
+    <PackageReference Include="Lnk" Version="1.1.0.2" />
+    <PackageReference Include="OleCf" Version="1.1.0.1" />
   </ItemGroup>
 
   
