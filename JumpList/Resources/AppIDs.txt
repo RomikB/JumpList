@@ -631,3 +631,23 @@ a55ed4fbb973aefb|Microsoft Teams
 573770283dc3d854|Windows Defender
 f18460fded109990|Windows Connected Devices
 dd7c3b1adb1c168b|Microsoft Game Bar
+447e6aa2bbdfbc8a|Slack 4.11.3
+3b94415067dd2c5d|GOG Galaxy
+58170c92fa4b91a1|MediaMonkey
+5f218922e0901ebf|MusicBee
+75fdacd8330bac18|AnyDesk
+8b87640a40ec9fc|Snagit 2020
+af0fdd562e3f275b|Snagit 2020
+b7173093b23b9a6a|Beyond Compare 4
+d356105fac5527ef|Steam 1/22/2021
+28efb5b6d2e28389|EA Origin
+20513cdf29d09c0e|Hex Editor Neo
+1d12f965b876dc87|Snagit 2021
+16f2f0042ddbe0e8|Windows Terminal
+352fd027c0e8f0e5|Zoom
+7111c0ce965b7246|Battle.net
+a7ba40025dac9a67|Microsoft Office Hub
+8e4e81d9adc545b8|Microsoft Your Phone
+c01827d56ff89056|Microsoft Sticky Notes
+bd050ac447f6cd65|Microsoft Xbox App
+ff99ba2fb2e34b73|Windows Calculator
