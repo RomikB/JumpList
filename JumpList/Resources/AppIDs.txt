@@ -618,3 +618,16 @@ a55ed4fbb973aefb|Microsoft Teams
 baacb5294867b833|Notepad++ 7.8.6
 d249d9ddd424b688|Google Chrome 81.0.4044.138
 ff99ba2fb2e34b73|Microsoft Windows Calculator
+4ac866364817f10c|Microsoft Edge (Chromium)
+ccba5a5986c77e43|Microsoft Edge (Chromium)
+188f5ec9d11ded56|Microsoft Edge (Chromium)
+69639df789022856|Google Chrome 86.0.4240.111
+352fd027c0e8f0e5|Zoom
+8bce06a9e923e1f9|Slack 4.10.3
+a55ed4fbb973aefb|Microsoft Teams
+1c7a9be1b15a03ba|Microsoft Snip & Sketch
+466d339d8f21cfbf|Microsoft Snip & Sketch
+9a165f62edbfa161|Microsoft Store
+573770283dc3d854|Windows Defender
+f18460fded109990|Windows Connected Devices
+dd7c3b1adb1c168b|Microsoft Game Bar
