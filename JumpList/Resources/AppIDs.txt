@@ -652,3 +652,4 @@ a7ba40025dac9a67|Microsoft Office Hub
 c01827d56ff89056|Microsoft Sticky Notes
 bd050ac447f6cd65|Microsoft Xbox App
 ff99ba2fb2e34b73|Windows Calculator
+fc98c00f85d4ce77|EditPad Pro 8
