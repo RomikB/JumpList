@@ -35,7 +35,7 @@ namespace JumpList.Automatic
 
             FileBirthDroid = new Guid(fileBirthDroidBytes);
 
-            Hostname = Encoding.GetEncoding(1252).GetString(rawBytes, 72, 16).Split('\0').First();
+            Hostname = Encoding.Unicode.GetString(rawBytes, 72, 16).Split('\0').First();
 
             EntryNumber = BitConverter.ToInt32(rawBytes, 88);
             Unknown0 = BitConverter.ToInt32(rawBytes, 92);
