@@ -654,3 +654,4 @@ bd050ac447f6cd65|Microsoft Xbox App
 ff99ba2fb2e34b73|Windows Calculator
 fc98c00f85d4ce77|EditPad Pro 8
 46e77b87767b92|Opera Browser 75
+ad57bd0f4825cce|WinRAR 6.01 Russian 64 bit
