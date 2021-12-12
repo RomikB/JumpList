@@ -3,85 +3,84 @@ using System.Collections.Generic;
 using System.IO;
 using JumpList.Properties;
 
-namespace JumpList
+namespace JumpList;
+
+public class AppIDList
 {
-    public class AppIDList
+    private readonly Dictionary<string, string> AppIDs;
+
+    public AppIDList()
     {
-        private readonly Dictionary<string, string> AppIDs;
+        //load included
+        string[] stringSeparators = {"\r\n"};
 
-        public AppIDList()
+        var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
+
+        //    var lines = File.ReadAllLines(Resources.AppIDs);
+
+        AppIDs = new Dictionary<string, string>();
+
+        IterateLines(lines);
+    }
+
+    public string GetDescriptionFromId(string id)
+    {
+        var desc = "Unknown AppId";
+
+        var intId = id.ToLowerInvariant();
+
+        if (AppIDs.ContainsKey(intId))
         {
-            //load included
-            string[] stringSeparators = {"\r\n"};
-
-            var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
-
-            //    var lines = File.ReadAllLines(Resources.AppIDs);
-
-            AppIDs = new Dictionary<string, string>();
-
-            IterateLines(lines);
+            desc = AppIDs[id];
         }
 
-        public string GetDescriptionFromId(string id)
+
+        return desc;
+    }
+
+    private int IterateLines(IEnumerable<string> lines)
+    {
+        var added = 0;
+
+        foreach (var line in lines)
         {
-            var desc = "Unknown AppId";
+            var segs = line.Split('|');
 
-            var intId = id.ToLowerInvariant();
-
-            if (AppIDs.ContainsKey(intId))
+            if (segs.Length != 2)
             {
-                desc = AppIDs[id];
+                continue;
             }
 
-
-            return desc;
-        }
-
-        private int IterateLines(IEnumerable<string> lines)
-        {
-            var added = 0;
-
-            foreach (var line in lines)
-            {
-                var segs = line.Split('|');
-
-                if (segs.Length != 2)
-                {
-                    continue;
-                }
-
-                var id = segs[0].Trim().ToLowerInvariant();
-                var desc = segs[1].Trim();
+            var id = segs[0].Trim().ToLowerInvariant();
+            var desc = segs[1].Trim();
 
 //                if (id.Length != 16)
 //                {
 //                    continue;
 //                }
 
-                if (AppIDs.ContainsKey(id) == false)
-                {
-                    AppIDs.Add(id, desc);
-                    added += 1;
-                }
-                else
-                {
-                    //key exists, so replace descrption
-                    AppIDs[id] = desc;
-                }
+            if (AppIDs.ContainsKey(id) == false)
+            {
+                AppIDs.Add(id, desc);
+                added += 1;
             }
-
-
-            return added;
+            else
+            {
+                //key exists, so replace descrption
+                AppIDs[id] = desc;
+            }
         }
 
-        public int LoadAppListFromFile(string filename)
-        {
-            //open file, parse, add to dictionary if key isnt already there, replace if it is there
 
-            var lines = File.ReadAllLines(filename);
+        return added;
+    }
 
-            return IterateLines(lines);
-        }
+    public int LoadAppListFromFile(string filename)
+    {
+        //open file, parse, add to dictionary if key isnt already there, replace if it is there
+
+        var lines = File.ReadAllLines(filename);
+
+        return IterateLines(lines);
     }
 }

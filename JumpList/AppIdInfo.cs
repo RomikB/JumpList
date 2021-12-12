@@ -1,20 +1,19 @@
-﻿namespace JumpList
+﻿namespace JumpList;
+
+public class AppIdInfo
 {
-    public class AppIdInfo
+    public AppIdInfo(string appId)
     {
-        public AppIdInfo(string appId)
-        {
-            AppId = appId;
-        }
+        AppId = appId;
+    }
 
-        public string AppId { get; }
+    public string AppId { get; }
 
-        public string Description =>
-            JumpList.AppIdList.GetDescriptionFromId(AppId);
+    public string Description =>
+        JumpList.AppIdList.GetDescriptionFromId(AppId);
 
-        public override string ToString()
-        {
-            return $"{AppId} ==> {Description}";
-        }
+    public override string ToString()
+    {
+        return $"{AppId} ==> {Description}";
     }
 }

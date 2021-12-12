@@ -2,33 +2,32 @@
 using JumpList.Automatic;
 using JumpList.Custom;
 
-namespace JumpList
+namespace JumpList;
+
+public static class JumpList
 {
-    public static class JumpList
+    static JumpList()
     {
-        static JumpList()
+        if (AppIdList == null)
         {
-            if (AppIdList == null)
-            {
-                AppIdList = new AppIDList();
-            }
+            AppIdList = new AppIDList();
         }
+    }
 
-        public static AppIDList AppIdList { get; }
+    public static AppIDList AppIdList { get; }
 
 
-        public static AutomaticDestination LoadAutoJumplist(string autoName)
-        {
-            var raw = File.ReadAllBytes(autoName);
+    public static AutomaticDestination LoadAutoJumplist(string autoName)
+    {
+        var raw = File.ReadAllBytes(autoName);
 
-            return new AutomaticDestination(raw, autoName);
-        }
+        return new AutomaticDestination(raw, autoName);
+    }
 
-        public static CustomDestination LoadCustomJumplist(string customName)
-        {
-            var raw = File.ReadAllBytes(customName);
+    public static CustomDestination LoadCustomJumplist(string customName)
+    {
+        var raw = File.ReadAllBytes(customName);
 
-            return new CustomDestination(raw, customName);
-        }
+        return new CustomDestination(raw, customName);
     }
 }

@@ -5,187 +5,196 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ExtensionBlocks;
 
-namespace JumpList.Automatic
+namespace JumpList.Automatic;
+
+public class DestListEntry
 {
-    public class DestListEntry
+    public DestListEntry(byte[] rawBytes, int version, int mruPosition)
     {
-        public DestListEntry(byte[] rawBytes, int version, int mruPosition)
+        MRUPosition = mruPosition;
+
+        Checksum = BitConverter.ToInt64(rawBytes, 0);
+
+        var volDroidBytes = new byte[16];
+        Buffer.BlockCopy(rawBytes, 8, volDroidBytes, 0, 16);
+
+        VolumeDroid = new Guid(volDroidBytes);
+
+        var fileDroidBytes = new byte[16];
+        Buffer.BlockCopy(rawBytes, 24, fileDroidBytes, 0, 16);
+
+        FileDroid = new Guid(fileDroidBytes);
+
+        var volBirthDroidBytes = new byte[16];
+        Buffer.BlockCopy(rawBytes, 40, volBirthDroidBytes, 0, 16);
+
+        VolumeBirthDroid = new Guid(volBirthDroidBytes);
+
+        var fileBirthDroidBytes = new byte[16];
+        Buffer.BlockCopy(rawBytes, 56, fileBirthDroidBytes, 0, 16);
+
+        FileBirthDroid = new Guid(fileBirthDroidBytes);
+
+        if (rawBytes[73] == 0)
         {
-            MRUPosition = mruPosition;
+            
+            Hostname = Encoding.Unicode.GetString(rawBytes, 72, 16).Split('\0').First();    
+        }
+        else
+        {
+            Hostname = Encoding.ASCII.GetString(rawBytes, 72, 16).Split('\0').First();
+        }
+        
+        
 
-            Checksum = BitConverter.ToInt64(rawBytes, 0);
+        EntryNumber = BitConverter.ToInt32(rawBytes, 88);
+        Unknown0 = BitConverter.ToInt32(rawBytes, 92);
+        AccessCount = BitConverter.ToSingle(rawBytes, 96);
 
-            var volDroidBytes = new byte[16];
-            Buffer.BlockCopy(rawBytes, 8, volDroidBytes, 0, 16);
+        LastModified = DateTimeOffset.FromFileTime(BitConverter.ToInt64(rawBytes, 100)).ToUniversalTime();
 
-            VolumeDroid = new Guid(volDroidBytes);
+        PinStatus = BitConverter.ToInt32(rawBytes, 108);
 
-            var fileDroidBytes = new byte[16];
-            Buffer.BlockCopy(rawBytes, 24, fileDroidBytes, 0, 16);
+        if (version > 1)
+        {
+            InteractionCount = BitConverter.ToInt32(rawBytes, 116);
+            Unknown3 = BitConverter.ToInt32(rawBytes, 120);
+            Unknown4 = BitConverter.ToInt32(rawBytes, 124);
 
-            FileDroid = new Guid(fileDroidBytes);
+            var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
 
-            var volBirthDroidBytes = new byte[16];
-            Buffer.BlockCopy(rawBytes, 40, volBirthDroidBytes, 0, 16);
+            Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
+        }
+        else
+        {
+            var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
 
-            VolumeBirthDroid = new Guid(volBirthDroidBytes);
+            Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
+        }
 
-            var fileBirthDroidBytes = new byte[16];
-            Buffer.BlockCopy(rawBytes, 56, fileBirthDroidBytes, 0, 16);
+        if (Path.StartsWith("knownfolder"))
+        {
+            var kfId = Path.Split('{').Last();
+            kfId = kfId.Substring(0, kfId.Length - 1);
 
-            FileBirthDroid = new Guid(fileBirthDroidBytes);
+            var fName = Utils.GetFolderNameFromGuid(kfId);
 
-            Hostname = Encoding.Unicode.GetString(rawBytes, 72, 16).Split('\0').First();
+            Path = $"{Path} ==> {fName}";
+        }
 
-            EntryNumber = BitConverter.ToInt32(rawBytes, 88);
-            Unknown0 = BitConverter.ToInt32(rawBytes, 92);
-            AccessCount = BitConverter.ToSingle(rawBytes, 96);
+        if (Path.StartsWith("::"))
+        {
+            var pathSegs = Path.Split('\\');
 
-            LastModified = DateTimeOffset.FromFileTime(BitConverter.ToInt64(rawBytes, 100)).ToUniversalTime();
+            var newPathSegs = new List<string>();
 
-            PinStatus = BitConverter.ToInt32(rawBytes, 108);
-
-            if (version > 1)
+            foreach (var pathSeg in pathSegs)
             {
-                InteractionCount = BitConverter.ToInt32(rawBytes, 116);
-                Unknown3 = BitConverter.ToInt32(rawBytes, 120);
-                Unknown4 = BitConverter.ToInt32(rawBytes, 124);
-
-                var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
-
-                Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
-            }
-            else
-            {
-                var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
-
-                Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
-            }
-
-            if (Path.StartsWith("knownfolder"))
-            {
-                var kfId = Path.Split('{').Last();
-                kfId = kfId.Substring(0, kfId.Length - 1);
-
-                var fName = Utils.GetFolderNameFromGuid(kfId);
-
-                Path = $"{Path} ==> {fName}";
-            }
-
-            if (Path.StartsWith("::"))
-            {
-                var pathSegs = Path.Split('\\');
-
-                var newPathSegs = new List<string>();
-
-                foreach (var pathSeg in pathSegs)
+                try
                 {
-                    try
+                    var regexObj =
+                        new Regex(
+                            @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b|\(\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\)|\{\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\}",
+                            RegexOptions.IgnoreCase);
+                    var matchResults = regexObj.Match(pathSeg);
+
+
+                    if (matchResults.Success)
                     {
-                        var regexObj =
-                            new Regex(
-                                @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b|\(\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\)|\{\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\}",
-                                RegexOptions.IgnoreCase);
-                        var matchResults = regexObj.Match(pathSeg);
-
-
-                        if (matchResults.Success)
-                        {
-                            var pguid = matchResults.Groups[0].Value;
-                            pguid = pguid.Substring(1, pguid.Length - 2);
-                            var pName = Utils.GetFolderNameFromGuid(pguid);
-                            newPathSegs.Add(pName);
-                        }
-                        else
-                        {
-                            newPathSegs.Add(pathSeg);
-                        }
+                        var pguid = matchResults.Groups[0].Value;
+                        pguid = pguid.Substring(1, pguid.Length - 2);
+                        var pName = Utils.GetFolderNameFromGuid(pguid);
+                        newPathSegs.Add(pName);
                     }
-                    catch (ArgumentException )
+                    else
                     {
-                        // Syntax error in the regular expression
+                        newPathSegs.Add(pathSeg);
                     }
                 }
-
-                Path = $"{Path} ==> {string.Join("\\", newPathSegs)}";
+                catch (ArgumentException )
+                {
+                    // Syntax error in the regular expression
+                }
             }
 
-            var tempMac = FileDroid.ToString().Split('-').Last();
-
-            MacAddress = Regex.Replace(tempMac, ".{2}", "$0:");
-            MacAddress = MacAddress.Substring(0, MacAddress.Length - 1);
-
-            CreationTime = GetDateTimeOffsetFromGuid(FileDroid);
+            Path = $"{Path} ==> {string.Join("\\", newPathSegs)}";
         }
 
-        public long Checksum { get; }
-        public int EntryNumber { get; }
-        public int MRUPosition { get; }
-        public Guid FileBirthDroid { get; }
-        public Guid FileDroid { get; }
-        public string Hostname { get; }
-        public DateTimeOffset LastModified { get; }
-        public string Path { get; }
-        public int PinStatus { get; }
-        public int Unknown0 { get; }
-        public float AccessCount { get; }
-        public int InteractionCount { get; }
-        public int Unknown3 { get; }
-        public int Unknown4 { get; }
-        public Guid VolumeBirthDroid { get; }
-        public Guid VolumeDroid { get; }
+        var tempMac = FileDroid.ToString().Split('-').Last();
 
-        public DateTimeOffset CreationTime { get; }
-        public string MacAddress { get; }
+        MacAddress = Regex.Replace(tempMac, ".{2}", "$0:");
+        MacAddress = MacAddress.Substring(0, MacAddress.Length - 1);
 
-        private DateTimeOffset GetDateTimeOffsetFromGuid(Guid guid)
-        {
-            // offset to move from 1/1/0001, which is 0-time for .NET, to gregorian 0-time of 10/15/1582
-            var gregorianCalendarStart = new DateTimeOffset(1582, 10, 15, 0, 0, 0, TimeSpan.Zero);
-            const int versionByte = 7;
-            const int versionByteMask = 0x0f;
-            const int versionByteShift = 4;
-            const byte timestampByte = 0;
+        CreationTime = GetDateTimeOffsetFromGuid(FileDroid);
+    }
 
-            var bytes = guid.ToByteArray();
+    public long Checksum { get; }
+    public int EntryNumber { get; }
+    public int MRUPosition { get; }
+    public Guid FileBirthDroid { get; }
+    public Guid FileDroid { get; }
+    public string Hostname { get; }
+    public DateTimeOffset LastModified { get; }
+    public string Path { get; }
+    public int PinStatus { get; }
+    public int Unknown0 { get; }
+    public float AccessCount { get; }
+    public int InteractionCount { get; }
+    public int Unknown3 { get; }
+    public int Unknown4 { get; }
+    public Guid VolumeBirthDroid { get; }
+    public Guid VolumeDroid { get; }
 
-            // reverse the version
-            bytes[versionByte] &= versionByteMask;
-            bytes[versionByte] |= 0x01 >> versionByteShift;
+    public DateTimeOffset CreationTime { get; }
+    public string MacAddress { get; }
 
-            var timestampBytes = new byte[8];
-            Array.Copy(bytes, timestampByte, timestampBytes, 0, 8);
+    private DateTimeOffset GetDateTimeOffsetFromGuid(Guid guid)
+    {
+        // offset to move from 1/1/0001, which is 0-time for .NET, to gregorian 0-time of 10/15/1582
+        var gregorianCalendarStart = new DateTimeOffset(1582, 10, 15, 0, 0, 0, TimeSpan.Zero);
+        const int versionByte = 7;
+        const int versionByteMask = 0x0f;
+        const int versionByteShift = 4;
+        const byte timestampByte = 0;
 
-            var timestamp = BitConverter.ToInt64(timestampBytes, 0);
-            var ticks = timestamp + gregorianCalendarStart.Ticks;
+        var bytes = guid.ToByteArray();
 
-            return new DateTimeOffset(ticks, TimeSpan.Zero);
-        }
+        // reverse the version
+        bytes[versionByte] &= versionByteMask;
+        bytes[versionByte] |= 0x01 >> versionByteShift;
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
+        var timestampBytes = new byte[8];
+        Array.Copy(bytes, timestampByte, timestampBytes, 0, 8);
 
-            sb.AppendLine($"Checksum: {Checksum}");
-            sb.AppendLine($"VolumeDroid: {VolumeDroid}");
-            sb.AppendLine($"VolumeBirthDroid: {VolumeBirthDroid}");
-            sb.AppendLine($"FileDroid: {FileDroid}");
-            sb.AppendLine($"FileBirthDroid: {FileBirthDroid}");
-            sb.AppendLine($"Hostname: {Hostname}");
-            sb.AppendLine($"EntryNumber: {EntryNumber}");
-            sb.AppendLine($"MRUPosition: {MRUPosition}");
-            sb.AppendLine($"LastMod: {LastModified}");
-            sb.AppendLine($"PinStatus: {PinStatus}");
-            sb.AppendLine($"Path: {Path}");
-            sb.AppendLine($"MacAddress: {MacAddress}");
-            sb.AppendLine($"CreationTime: {CreationTime}");
-            sb.AppendLine($"Unknown0: {Unknown0}");
-            sb.AppendLine($"AccessCount: {AccessCount}");
-            sb.AppendLine($"InteractionCount: {InteractionCount}");
-            sb.AppendLine($"Unknown3: {Unknown3}");
-            sb.AppendLine($"Unknown4: {Unknown4}");
+        var timestamp = BitConverter.ToInt64(timestampBytes, 0);
+        var ticks = timestamp + gregorianCalendarStart.Ticks;
 
-            return sb.ToString();
-        }
+        return new DateTimeOffset(ticks, TimeSpan.Zero);
+    }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        sb.AppendLine($"Checksum: {Checksum}");
+        sb.AppendLine($"VolumeDroid: {VolumeDroid}");
+        sb.AppendLine($"VolumeBirthDroid: {VolumeBirthDroid}");
+        sb.AppendLine($"FileDroid: {FileDroid}");
+        sb.AppendLine($"FileBirthDroid: {FileBirthDroid}");
+        sb.AppendLine($"Hostname: {Hostname}");
+        sb.AppendLine($"EntryNumber: {EntryNumber}");
+        sb.AppendLine($"MRUPosition: {MRUPosition}");
+        sb.AppendLine($"LastMod: {LastModified}");
+        sb.AppendLine($"PinStatus: {PinStatus}");
+        sb.AppendLine($"Path: {Path}");
+        sb.AppendLine($"MacAddress: {MacAddress}");
+        sb.AppendLine($"CreationTime: {CreationTime}");
+        sb.AppendLine($"Unknown0: {Unknown0}");
+        sb.AppendLine($"AccessCount: {AccessCount}");
+        sb.AppendLine($"InteractionCount: {InteractionCount}");
+        sb.AppendLine($"Unknown3: {Unknown3}");
+        sb.AppendLine($"Unknown4: {Unknown4}");
+
+        return sb.ToString();
     }
 }
