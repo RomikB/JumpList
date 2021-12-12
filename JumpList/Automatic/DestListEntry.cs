@@ -101,7 +101,7 @@ namespace JumpList.Automatic
                             newPathSegs.Add(pathSeg);
                         }
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException )
                     {
                         // Syntax error in the regular expression
                     }

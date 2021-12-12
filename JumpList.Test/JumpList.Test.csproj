@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -15,8 +15,8 @@
     <ProjectReference Include="..\JumpList\JumpList.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OleCf" Version="1.1.0.2" />
-    <PackageReference Include="FluentAssertions" Version="6.1.0" />
+    <PackageReference Include="OleCf" Version="1.1.0.3" />
+    <PackageReference Include="FluentAssertions" Version="6.2.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
