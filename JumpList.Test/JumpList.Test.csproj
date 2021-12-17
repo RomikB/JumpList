@@ -4,7 +4,6 @@
     <LangVersion>10</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="TestFiles\Win10\5f7b5f1e01b83767.automaticDestinations-ms" />
     <None Include="TestFiles\Win10\7e4dca80246863e3.automaticDestinations-ms" />
     <None Include="TestFiles\Win10\f01b4d95cf55d32a.automaticDestinations-ms" />
