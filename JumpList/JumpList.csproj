@@ -10,13 +10,13 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/jumplist</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/jumplist</RepositoryUrl>
-    <Version>1.2.2.1</Version>
+    <Version>1.2.2.2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lnk" Version="1.2.2" />
+    <PackageReference Include="Lnk" Version="1.2.2.1" />
     <PackageReference Include="OleCf" Version="1.1.1" />
   </ItemGroup>
 
