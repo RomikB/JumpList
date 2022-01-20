@@ -5,20 +5,18 @@ using JumpList.Properties;
 
 namespace JumpList;
 
-public class AppIDList
+public class AppIdList
 {
-    private readonly Dictionary<string, string> AppIDs;
+    private readonly Dictionary<string, string> _appIDs;
 
-    public AppIDList()
+    public AppIdList()
     {
         //load included
         string[] stringSeparators = {"\r\n"};
 
         var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
 
-        //    var lines = File.ReadAllLines(Resources.AppIDs);
-
-        AppIDs = new Dictionary<string, string>();
+        _appIDs = new Dictionary<string, string>();
 
         IterateLines(lines);
     }
@@ -29,9 +27,9 @@ public class AppIDList
 
         var intId = id.ToLowerInvariant();
 
-        if (AppIDs.ContainsKey(intId))
+        if (_appIDs.ContainsKey(intId))
         {
-            desc = AppIDs[id];
+            desc = _appIDs[id];
         }
 
 
@@ -54,20 +52,15 @@ public class AppIDList
             var id = segs[0].Trim().ToLowerInvariant();
             var desc = segs[1].Trim();
 
-//                if (id.Length != 16)
-//                {
-//                    continue;
-//                }
-
-            if (AppIDs.ContainsKey(id) == false)
+            if (_appIDs.ContainsKey(id) == false)
             {
-                AppIDs.Add(id, desc);
+                _appIDs.Add(id, desc);
                 added += 1;
             }
             else
             {
-                //key exists, so replace descrption
-                AppIDs[id] = desc;
+                //key exists, so replace description
+                _appIDs[id] = desc;
             }
         }
 

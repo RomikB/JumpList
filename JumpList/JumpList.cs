@@ -8,13 +8,10 @@ public static class JumpList
 {
     static JumpList()
     {
-        if (AppIdList == null)
-        {
-            AppIdList = new AppIDList();
-        }
+        AppIdList = new AppIdList();
     }
 
-    public static AppIDList AppIdList { get; }
+    public static AppIdList AppIdList { get; }
 
 
     public static AutomaticDestination LoadAutoJumplist(string autoName)

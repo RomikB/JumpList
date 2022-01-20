@@ -44,8 +44,6 @@ public class DestListEntry
         {
             Hostname = Encoding.ASCII.GetString(rawBytes, 72, 16).Split('\0').First();
         }
-        
-        
 
         EntryNumber = BitConverter.ToInt32(rawBytes, 88);
         Unknown0 = BitConverter.ToInt32(rawBytes, 92);
