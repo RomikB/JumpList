@@ -11,11 +11,12 @@ public static class JumpList
         AppIdList = new AppIdList();
     }
 
-    public static AppIdList AppIdList { get; }
+    public static AppIdList AppIdList { get; internal set; }
 
 
     public static AutomaticDestination LoadAutoJumplist(string autoName)
     {
+        AppIdList = new AppIdList();
         var raw = File.ReadAllBytes(autoName);
 
         return new AutomaticDestination(raw, autoName);
@@ -23,6 +24,7 @@ public static class JumpList
 
     public static CustomDestination LoadCustomJumplist(string customName)
     {
+        AppIdList = new AppIdList();
         var raw = File.ReadAllBytes(customName);
 
         return new CustomDestination(raw, customName);

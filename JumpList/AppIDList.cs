@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using JumpList.Properties;
+using Serilog;
 
 namespace JumpList;
 
@@ -11,12 +12,16 @@ public class AppIdList
 
     public AppIdList()
     {
+        Log.Debug("Loading AppIds...");
         //load included
         string[] stringSeparators = {"\r\n"};
 
         var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
 
-        _appIDs = new Dictionary<string, string>();
+     
+            _appIDs = new Dictionary<string, string>();    
+       
+        
 
         IterateLines(lines);
     }
@@ -42,6 +47,7 @@ public class AppIdList
 
         foreach (var line in lines)
         {
+            Log.Verbose("Processing line {Line}",line);
             var segs = line.Split('|');
 
             if (segs.Length != 2)
@@ -73,6 +79,8 @@ public class AppIdList
         //open file, parse, add to dictionary if key isnt already there, replace if it is there
 
         var lines = File.ReadAllLines(filename);
+        
+        Log.Debug("Processing additional AppIds in {File}",filename);
 
         return IterateLines(lines);
     }
