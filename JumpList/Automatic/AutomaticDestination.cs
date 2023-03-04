@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ExtensionBlocks;
 using Lnk;
 using OleCf;
 
@@ -134,6 +135,8 @@ public class AutomaticDestination
         {
             sb.AppendLine(
                 $"    DestList (v{DestList?.Header.Version}) entries Expected: {DestListCount}, Actual: {DestListEntries.Count}");
+            
+            
         }
         else
         {
@@ -154,6 +157,12 @@ public class AutomaticDestination
                 sb.AppendLine($"    Target created: {entry.Lnk.Header.TargetCreationDate}");
                 sb.AppendLine($"    Target modified: {entry.Lnk.Header.TargetModificationDate}");
                 sb.AppendLine($"    Target accessed: {entry.Lnk.Header.TargetLastAccessedDate}");
+            }
+
+            if (entry.Sps != null)
+            {
+                sb.AppendLine("Property store info");
+                sb.AppendLine(entry.Sps.ToString());
             }
 
             sb.AppendLine();
@@ -210,6 +219,7 @@ public class AutoDestList
         Pinned = destEntry.PinStatus != -1;
         Path = destEntry.Path;
         MacAddress = destEntry.MacAddress;
+        Sps = destEntry.Sps;
 
         Lnk = lnk;
         InteractionCount = interactionCount;
@@ -226,6 +236,9 @@ public class AutoDestList
     public DateTimeOffset CreatedOn { get; }
     public DateTimeOffset LastModified { get; }
     public bool Pinned { get; }
+    
+    public PropertySheet Sps { get;}
+    
     public string Path { get; }
     public string MacAddress { get; }
 

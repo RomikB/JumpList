@@ -113,7 +113,7 @@ public class TestMain
     [Test]
     public void OneOff()
     {
-        var f = @"C:\temp\d00655d2aa12ff6d.automaticDestinations-ms";
+        var f = @"C:\Users\eric\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\5a2098e080cf7ac4.automaticDestinations-ms";
 
 
         var raw = File.ReadAllBytes(f);

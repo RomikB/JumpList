@@ -43,6 +43,7 @@ public class DestList
                 mruPos += 1;
             }
         }
+    
         else
         {
             //windows 10 has version 3              
@@ -53,17 +54,22 @@ public class DestList
             {
                 pathSize = BitConverter.ToInt16(rawBytes, index + 128);
                 //now that we know pathSize we can determine how big each record is
-                entrySize = 128 + 2 + pathSize * 2 + 4;
-                //128 is offset to the string, 2 for the size itself, double path for unicode, then 4 extra at the end
+                entrySize = 128 + 2 + pathSize * 2;
+                //128 is offset to the string, 2 for the size itself, double path for unicode
+                
+                //after entry size, if the 4 bytes are 0, theres no extra data, but if not, its an SPS
+                var spsSize = BitConverter.ToInt32(rawBytes,index + entrySize);
 
-                var entryBytes2 = new byte[entrySize];
-                Buffer.BlockCopy(rawBytes, index, entryBytes2, 0, entrySize);
+                
 
-                var entry2 = new DestListEntry(entryBytes2, Header.Version, mruPos);
+                var entryBytes2 = new byte[entrySize+spsSize+4];
+                Buffer.BlockCopy(rawBytes, index, entryBytes2, 0, entrySize+spsSize);
+
+                var entry2 = new DestListEntry(entryBytes2, Header.Version, mruPos,spsSize);
 
                 Entries.Add(entry2);
 
-                index += entrySize;
+                index += entrySize + spsSize + 4; //4 is the size of the sps
 
                 mruPos += 1;
             }

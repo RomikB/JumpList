@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using ExtensionBlocks;
+using Lnk.ExtraData;
 
 namespace JumpList.Automatic;
 
 public class DestListEntry
 {
-    public DestListEntry(byte[] rawBytes, int version, int mruPosition)
+    public DestListEntry(byte[] rawBytes, int version, int mruPosition,int spsSize =0)
     {
         MRUPosition = mruPosition;
 
@@ -50,6 +51,9 @@ public class DestListEntry
         AccessCount = BitConverter.ToSingle(rawBytes, 96);
 
         LastModified = DateTimeOffset.FromFileTime(BitConverter.ToInt64(rawBytes, 100)).ToUniversalTime();
+   
+        
+        
 
         PinStatus = BitConverter.ToInt32(rawBytes, 108);
 
@@ -124,6 +128,12 @@ public class DestListEntry
         MacAddress = MacAddress.Substring(0, MacAddress.Length - 1);
 
         CreationTime = GetDateTimeOffsetFromGuid(FileDroid);
+
+        if (spsSize > 0)
+        {
+            Sps = new PropertySheet(rawBytes.Skip(rawBytes.Length - spsSize).ToArray());
+        }
+        
     }
 
     public long Checksum { get; }
@@ -142,6 +152,8 @@ public class DestListEntry
     public int Unknown4 { get; }
     public Guid VolumeBirthDroid { get; }
     public Guid VolumeDroid { get; }
+    
+    public PropertySheet Sps { get;}
 
     public DateTimeOffset CreationTime { get; }
     public string MacAddress { get; }
