@@ -73,6 +73,11 @@ public class AutomaticDestination
 
                     var dle = new AutoDestList(entry, dlnk,entry.InteractionCount);
 
+                    if (entry.Sps != null && HasSps == false)
+                    {
+                        HasSps = true;
+                    }
+
                     DestListEntries.Add(dle);
                 }
                 else
@@ -98,6 +103,8 @@ public class AutomaticDestination
     public string SourceFile { get; }
 
     private DestList DestList { get; }
+    
+    public bool HasSps { get; }
 
     public List<AutoDestList> DestListEntries { get; }
 
@@ -129,14 +136,12 @@ public class AutomaticDestination
 
         sb.AppendLine($">>Source: {SourceFile}");
         sb.AppendLine($"    AppId: {AppId}");
-        sb.AppendLine($"    Directory contains {Directory.Count:N0} items (including Root storage and DestList)");
+        sb.AppendLine($"    Directory contains {Directory.Count:N0} items (including Root storage and DestList). Has Sps: {HasSps}");
 
         if (DestList != null)
         {
             sb.AppendLine(
                 $"    DestList (v{DestList?.Header.Version}) entries Expected: {DestListCount}, Actual: {DestListEntries.Count}");
-            
-            
         }
         else
         {
