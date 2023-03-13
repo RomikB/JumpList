@@ -115,7 +115,8 @@ public class TestMain
     {
        // var f = @"C:\Users\eric\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\5a2098e080cf7ac4.automaticDestinations-ms";
       //  var f = @"C:\Users\eric\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\1c7a9be1b15a03ba.automaticDestinations-ms";
-        var f = @"C:\temp\(MUS2023)5a2098e080cf7ac4.automaticDestinations-ms";
+        //var f = @"C:\temp\(MUS2023)5a2098e080cf7ac4.automaticDestinations-ms";
+        var f = @"C:\Users\eric\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\1c7a9be1b15a03ba.automaticDestinations-ms";
 
 
         var raw = File.ReadAllBytes(f);

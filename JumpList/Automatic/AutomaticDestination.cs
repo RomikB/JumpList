@@ -54,12 +54,10 @@ public class AutomaticDestination
         {
             var destListPropertyStoreBytes = _oleContainer.GetPayloadForDirectory(destListPropertyStore);
 
-            //DestList = new DestList(destBytes);
-            
-            DestListPropertyStore = new PropertySheet(destListPropertyStoreBytes.Skip(4).ToArray());
-          
-          
-          
+            if (BitConverter.ToInt32(destListPropertyStoreBytes, 0) > 0)
+            {
+                DestListPropertyStore = new PropertySheet(destListPropertyStoreBytes.Skip(4).ToArray());    
+            }
         }
 
 
