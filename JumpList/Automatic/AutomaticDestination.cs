@@ -54,8 +54,11 @@ public class AutomaticDestination
         {
             var destListPropertyStoreBytes = _oleContainer.GetPayloadForDirectory(destListPropertyStore);
 
+            EmptyDestListPropertyStore = true;
+            
             if (BitConverter.ToInt32(destListPropertyStoreBytes, 0) > 0)
             {
+                EmptyDestListPropertyStore = false;
                 DestListPropertyStore = new PropertySheet(destListPropertyStoreBytes.Skip(4).ToArray());    
             }
         }
@@ -121,6 +124,7 @@ public class AutomaticDestination
     public bool HasSps { get; }
     
     public PropertySheet DestListPropertyStore { get; }
+    public bool EmptyDestListPropertyStore { get; }
 
     public List<AutoDestList> DestListEntries { get; }
 
