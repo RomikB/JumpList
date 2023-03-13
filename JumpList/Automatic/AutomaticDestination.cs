@@ -45,6 +45,22 @@ public class AutomaticDestination
 
             DestList = new DestList(destBytes);
         }
+        
+        
+            
+        var destListPropertyStore =
+            _oleContainer.Directory.SingleOrDefault(t => t.DirectoryName == "DestListPropertyStore");
+        if (destListPropertyStore != null && destListPropertyStore.DirectorySize > 0)
+        {
+            var destListPropertyStoreBytes = _oleContainer.GetPayloadForDirectory(destListPropertyStore);
+
+            //DestList = new DestList(destBytes);
+            
+            DestListPropertyStore = new PropertySheet(destListPropertyStoreBytes.Skip(4).ToArray());
+          
+          
+          
+        }
 
 
         DestListEntries = new List<AutoDestList>();
@@ -105,6 +121,8 @@ public class AutomaticDestination
     private DestList DestList { get; }
     
     public bool HasSps { get; }
+    
+    public PropertySheet DestListPropertyStore { get; }
 
     public List<AutoDestList> DestListEntries { get; }
 
@@ -149,6 +167,16 @@ public class AutomaticDestination
         }
 
         sb.AppendLine();
+
+        if (DestListPropertyStore != null)
+        {
+            sb.AppendLine("    Jump list DestList Property Store");
+            
+            foreach (var propertyName in DestListPropertyStore.PropertyNames)
+            {
+                sb.AppendLine($"         Property: {propertyName.Key} --> {propertyName.Value}");
+            }
+        }
 
         foreach (var entry in DestListEntries)
         {
