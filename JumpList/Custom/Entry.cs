@@ -19,7 +19,7 @@ public class Entry
 
     private readonly Dictionary<string, byte[]> lnkBytes;
 
-    public Entry(byte[] rawBytes, int entryOffset)
+    public Entry(byte[] rawBytes, int entryOffset, int codepage = 1252)
     {
         LnkFiles = new List<LnkFile>();
         lnkBytes = new Dictionary<string, byte[]>();
@@ -85,7 +85,7 @@ public class Entry
 
             lnkBytes.Add(name, bytes);
 
-            var l = new LnkFile(bytes, name);
+            var l = new LnkFile(bytes, name, codepage);
 
             LnkFiles.Add(l);
 

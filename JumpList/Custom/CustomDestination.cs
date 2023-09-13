@@ -10,7 +10,7 @@ public class CustomDestination
 {
     private readonly byte[] footerBytes = {0xAB, 0xFB, 0xBF, 0xBA};
 
-    public CustomDestination(byte[] rawBytes, string sourceFile)
+    public CustomDestination(byte[] rawBytes, string sourceFile, int codepage = 1252)
     {
         if (rawBytes.Length == 0)
         {
@@ -89,7 +89,7 @@ public class CustomDestination
         {
             if (byteChunk.Length > 30)
             {
-                var e = new Entry(byteChunk, absOffsets[counter]);
+                var e = new Entry(byteChunk, absOffsets[counter], codepage);
 
                 Entries.Add(e);
                 counter += 1;
