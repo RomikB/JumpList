@@ -13,7 +13,7 @@ public class AutomaticDestination
 {
     private readonly OleCfFile _oleContainer;
 
-    public AutomaticDestination(byte[] rawBytes, string sourceFile)
+    public AutomaticDestination(byte[] rawBytes, string sourceFile, int codepage = 1252)
     {
         if (rawBytes.Length == 0)
         {
@@ -86,7 +86,7 @@ public class AutomaticDestination
 
                     var p = _oleContainer.GetPayloadForDirectory(dirItem);
 
-                    var dlnk = new LnkFile(p, sfn);
+                    var dlnk = new LnkFile(p, sfn, codepage);
 
                     var dle = new AutoDestList(entry, dlnk,entry.InteractionCount);
 
