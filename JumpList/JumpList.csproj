@@ -10,7 +10,7 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/jumplist</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/jumplist</RepositoryUrl>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
 
