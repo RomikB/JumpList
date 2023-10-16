@@ -55,7 +55,7 @@ public class AppIdList
             }
 
             var id = segs[0].Trim().ToLowerInvariant().TrimStart('"').TrimEnd('"');
-            var desc = segs[1].Trim();
+            var desc = segs[1].Trim().TrimStart('"').TrimEnd('"');
             
             if (_appIDs.ContainsKey(id) == false)
             {
