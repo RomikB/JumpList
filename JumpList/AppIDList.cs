@@ -17,12 +17,9 @@ public class AppIdList
         string[] stringSeparators = {"\r\n"};
 
         var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
-
-     
-            _appIDs = new Dictionary<string, string>();    
-       
         
-
+        _appIDs = new Dictionary<string, string>();    
+       
         IterateLines(lines);
     }
 
@@ -32,6 +29,8 @@ public class AppIdList
 
         var intId = id.ToLowerInvariant();
 
+        _appIDs.TryGetValue(intId, out desc);
+        
         if (_appIDs.ContainsKey(intId))
         {
             desc = _appIDs[id];
@@ -55,9 +54,9 @@ public class AppIdList
                 continue;
             }
 
-            var id = segs[0].Trim().ToLowerInvariant();
+            var id = segs[0].Trim().ToLowerInvariant().TrimStart('"').TrimEnd('"');
             var desc = segs[1].Trim();
-
+            
             if (_appIDs.ContainsKey(id) == false)
             {
                 _appIDs.Add(id, desc);
