@@ -12,6 +12,8 @@ public class DestListEntry
 {
     public DestListEntry(byte[] rawBytes, int version, int mruPosition,int spsSize =0)
     {
+        RawBytes = rawBytes;
+
         MRUPosition = mruPosition;
 
         Checksum = BitConverter.ToInt64(rawBytes, 0);
@@ -157,6 +159,8 @@ public class DestListEntry
 
     public DateTimeOffset CreationTime { get; }
     public string MacAddress { get; }
+
+    public byte[] RawBytes { get; }
 
     private DateTimeOffset GetDateTimeOffsetFromGuid(Guid guid)
     {

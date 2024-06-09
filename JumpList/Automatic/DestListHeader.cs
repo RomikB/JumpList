@@ -18,7 +18,7 @@ public class DestListHeader
     }
 
     public int Version { get; }
-    public int NumberOfEntries { get; }
+    public int NumberOfEntries { get; internal set; }
     public int NumberOfPinnedEntries { get; }
     public float UnknownCounter { get; }
     public int LastEntryNumber { get; }
@@ -40,5 +40,19 @@ public class DestListHeader
         sb.AppendLine($"Unknown2: {Unknown2}");
 
         return sb.ToString();
+    }
+
+    public byte[] ToBytes()
+    {
+        var bytes = new byte[32];
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 0, 4), Version);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 4, 4), NumberOfEntries);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 8, 4), NumberOfPinnedEntries);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 12, 4), UnknownCounter);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 16, 4), LastEntryNumber);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 20, 4), Unknown1);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 24, 4), LastRevisionNumber);
+        BitConverter.TryWriteBytes(new Span<byte>(bytes, 28, 4), Unknown2);
+        return bytes;
     }
 }

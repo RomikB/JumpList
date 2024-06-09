@@ -95,4 +95,29 @@ public class DestList
 
         return sb.ToString();
     }
+
+    public void RemoveEntry(DestListEntry entry)
+    {
+        Entries.Remove(entry);
+        Header.NumberOfEntries = Entries.Count;
+    }
+
+    public byte[] ToBytes()
+    {
+        byte[] bytes;
+        var headerBytes = Header.ToBytes();
+        bytes = new byte[headerBytes.Length];
+        headerBytes.CopyTo(bytes, 0);
+
+        foreach (var entry in Entries)
+        {
+            var entryBytes = entry.RawBytes;
+            var tmpBytes = bytes;
+            bytes = new byte[tmpBytes.Length + entryBytes.Length];
+            tmpBytes.CopyTo(bytes, 0);
+            entryBytes.CopyTo(bytes, tmpBytes.Length);
+        }
+
+        return bytes;
+    }
 }
