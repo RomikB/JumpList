@@ -1,4 +1,3 @@
-# Automatic and Custom Destination Jump List parser
+# Automatic and Custom Destination Jump List simple editor
 
-
-Open Source Development funding and support provided by the following contributors: [SANS Institute](http://sans.org/) and [SANS DFIR](http://dfir.sans.org/).
+Fork of EricZimmerman JumpList
